@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="assets/css/style.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>Odd Sock</title>
+</head>
+
+<body>
+	<header class="game-title">
+		<h1 class="main-header">Odd Socks</h1>
+	</header>
+	<main>
+		<div class="start-game">
+			<button id="start-game" onclick="startGame(4)">
+				<h3>Easy</h3>
+			</button>
+			<button id="start-game" onclick="startGame(6)">
+				<h3>Medium</h3>
+			</button>
+			<button id="start-game" onclick="startGame(8)">
+				<h3>Hard</h3>
+			</button>
+			<button id="start-game" onclick="resetGame()">
+				<h3>Reset</h3>
+			</button>
+		</div>
+		<div class="game-container">
+			<div class="game-info">
+				<div class="move-counter">
+					Moves: <span id="moves-total">0</span>
+				</div>
+				<div class="time-ramain">
+					Time: <span id="countdown">111</span>
+				</div>
+			</div>
+<!--Start game button, use js to place these divs here as per difficulty level-->
+		</div>
+	</main>
+	<footer class="container-fluid">
+		<a class="footer-links" href="#">
+			<h4>Footer w/links</h4>
+		</a>
+	</footer>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+
+</html>

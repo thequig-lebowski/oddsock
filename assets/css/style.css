@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700");
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
+
+* {
+    box-sizing: border-box; /*Allow content box to shrink to accomadate padding and borders*/
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(#0ecaf0, #10d7de);
+}
+
+html {
+    min-height: 100vh;
+}
+
+.game-title {
+    text-align: center;
+    font-size: 5em;
+    padding-top: 20px;
+
+}
+
+.cardback {
+    background-color: black;
+    height: 115px;
+    width: 115px;
+}
+
+.game-container {
+    display: none;  /*target this in .js and change to 'grid' to display game*/
+    grid-template-columns: repeat(4, auto); /*target and change this to set dificulty level*/
+    grid-gap: 10px;
+    margin: 30px;
+    justify-content: center;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    grid-column: 1 / -1;
+}
+
+#start-game {
+    justify-content: center;
+}
