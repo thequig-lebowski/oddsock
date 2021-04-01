@@ -1,8 +1,21 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700|Exo:100,200,300,400,500,600,700");
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap');
+
+@font-face{
+    font-family: "SafirScript";
+    src: url("../fonts/SafirScript.ttf") format("truetype");
+  }
+
 
 * {
     box-sizing: border-box; /*Allow content box to shrink to accomadate padding and borders*/
+}
+
+.main-header {
+    font-family: SafirScript;
+    font-size: 9vw;
+
 }
 
 body {
@@ -16,31 +29,86 @@ html {
 
 .game-title {
     text-align: center;
-    font-size: 5em;
     padding-top: 20px;
+    color: red;
+    text-shadow:
+    3px 3px 0 #000,
+  -1px -1px 0 #000,  
+   1px -1px 0 #000,
+   -1px 1px 0 #000,
+    1px 1px 0 #000;
+
 
 }
 
-.cardback {
+.card {
     background-color: black;
+    border-radius: 5px;
     height: 115px;
     width: 115px;
 }
 
+.card-back {
+    margin: 0;
+    padding: 0;
+}
+
+.card-front {
+    margin: 0;
+    padding: 0;
+}
 .game-container {
     display: none;  /*target this in .js and change to 'grid' to display game*/
-    grid-template-columns: repeat(4, auto); /*target and change this to set dificulty level*/
+    grid-template-columns: repeat(int, auto); /*target and change this to set dificulty level*/
     grid-gap: 10px;
     margin: 30px;
     justify-content: center;
 }
 
+button {
+    border-radius: 4px !important;
+}
 .game-info {
     display: flex;
     justify-content: space-between;
     grid-column: 1 / -1;
+    font-family: 'Dela Gothic One', cursive;
 }
 
-#start-game {
-    justify-content: center;
+.game-controls {
+    text-align: center;
+    padding-top: 10px;
+    font-family: 'Dela Gothic One', cursive;
+}
+
+a {
+    color: inherit !important;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration: none !important;    
+}
+
+
+
+/*------------------Media Queries------------------*/
+
+/* On screens that are 992px wide or less*/
+@media screen and (max-width: 992px) {
+
+  }
+
+/* On screens that are 767px wide or less*/
+@media screen and (max-width: 767px) {
+
+}
+
+/* On screens that are 767px wide or less*/
+@media screen and (max-width: 576px) {
+
+  .card {
+    height: 75px;
+    width: 75px;
+}
 }

@@ -13,21 +13,23 @@
 
 <body>
 	<header class="game-title">
-		<h1 class="main-header">Odd Socks</h1>
+			<h1 class="main-header">
+				<a href="#">Laundr-O-Match</a>
+			</h1>
 	</header>
 	<main>
-		<div class="start-game">
-			<button id="start-game" onclick="startGame(4)">
-				<h3>Easy</h3>
+		<div class="game-controls">
+			<button id="easy" onclick="startGame(4)">
+				<h4>Easy</h4>
 			</button>
-			<button id="start-game" onclick="startGame(6)">
-				<h3>Medium</h3>
+			<button id="medium" onclick="startGame(6)">
+				<h4>Medium</h4>
 			</button>
-			<button id="start-game" onclick="startGame(8)">
-				<h3>Hard</h3>
+			<button id="hard" onclick="startGame(8)">
+				<h4>Hard</h4>
 			</button>
-			<button id="start-game" onclick="resetGame()">
-				<h3>Reset</h3>
+			<button id="reset" onclick="resetGame()">
+				<h4>Reset</h4>
 			</button>
 		</div>
 		<div class="game-container">
@@ -39,13 +41,13 @@
 					Time: <span id="countdown">111</span>
 				</div>
 			</div>
-<!--Start game button, use js to place these divs here as per difficulty level-->
+			<!--Start game button, use js to place these divs here as per difficulty level-->
 		</div>
 	</main>
-	<footer class="container-fluid">
-		<a class="footer-links" href="#">
-			<h4>Footer w/links</h4>
-		</a>
+	<footer class="footer">
+		<div class="container">
+			<span class="text-muted">Social Links Here</span>
+		</div>
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.0.js"
 		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
