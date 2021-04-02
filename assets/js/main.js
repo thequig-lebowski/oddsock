@@ -13,12 +13,12 @@ function startGame(num1) {
 	for (let i = 0; i < totalPairs; i++) {
 		for (let j = 0; j < 2; j++) {
 			gridBox = `${gridBox}
-					<div class="card">
-						<div class="card-back">
-							<img class"back" src="assets/images/cardfront.png" alt="hidden card"/>
+					<div class="card-wrapper">
+						<div class="card card-back">
+							<img class="back-image" src="assets/images/cardfront.png" alt="hidden card"/>
 						</div>
-						<div class="card-front">
-							<img class="sock" src="assets/images/${i + 1}.png" alt="sock picture"/>
+						<div class="card card-front">
+							<img class="front-image" src="assets/images/${i + 1}.png" alt="sock picture"/>
 						</div>
 					</div>`;
 		}
@@ -35,7 +35,7 @@ function resetGame() {
 
 	//To add modal here to check if user is sure they want to reset the game.
 
-	$(".card").remove();
+	$(".card-wrapper").remove();
 	$(".game-container").css("display", "none");
 
 }
