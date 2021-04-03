@@ -18,8 +18,7 @@
 
 body {
     margin: 0;
-    /* background: radial-gradient(#0ecaf0, #10d7de); */
-    background-color: lightcoral;
+    background: radial-gradient(#a9d8da, #0ecaf0);
 }
 
 .main-header {
@@ -29,7 +28,7 @@ body {
     padding-top: 20px;
     color: red;
     text-shadow:
-    3px 3px 0 #000,
+    3px 3px 0 #000, 
   -1px -1px 0 #000,  
    1px -1px 0 #000,
    -1px 1px 0 #000,
@@ -125,6 +124,10 @@ button:focus {
     position: relative;
     height: 115px;
     width: 115px;    
+}
+
+.card-wrapper:hover {
+    cursor: pointer;
 }
 
 .card-wrapper.flipped .card-back {
