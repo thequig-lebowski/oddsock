@@ -28,6 +28,7 @@ function startGame(num1) {
 	$(".game-container").css("display", "grid");
 	$(".game-container").append(gridBox);
 
+
 }
 
 
@@ -42,3 +43,4 @@ function resetGame() {
 
 //To add check gameplay function to see what game is being played and adjust the time remaining
 //accordingly. 
+

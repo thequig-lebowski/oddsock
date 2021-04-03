@@ -48,18 +48,10 @@ h1 {
 
 h4 {
     font-family: inherit;
-    font-size: 1.5rem;
-    margin-bottom: .5rem;
-    font-weight: 500;
-    line-height: 1.2;
+    font-size: 3.5vw;
+    margin-bottom: .2rem;
+    font-weight: 400;
     margin-top: 0;
-
-    display: block;
-    margin-block-start: 1.33em;
-    margin-block-end: 1.33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
 }
 
 #special-spacing {
@@ -105,8 +97,13 @@ a:hover {
 button {
     border-radius: 4px;
     font-family: 'Dela Gothic One', cursive;
+    cursor: pointer;
 
     
+}
+
+button:hover {
+    border: 4px solid blue; /*change this so the border doesn't mess layout. inner border?*/
 }
 
 .game-controls {
@@ -120,15 +117,14 @@ button {
     
     position: relative;
     height: 115px;
-    width: 115px;
-    background-color: purple;
+    width: 115px;    
 
 
 }
 
 .card {
     position: absolute;
-    border-radius: 5px;
+    border-radius: 11px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -172,8 +168,10 @@ button {
 /*------------------Media Queries------------------*/
 
 /* On screens that are 992px wide or less*/
-@media screen and (max-width: 992px) {
-
+@media screen and (min-width: 992px) {
+        .main-header{
+            font-size: 72px;
+        }
   }
 
 /* On screens that are 767px wide or less*/
