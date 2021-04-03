@@ -24,9 +24,9 @@ function startGame(num1) {
 		}
 	}
 
-	$(".game-container").css(`grid-template-columns`, `repeat(${num1}, auto)`);
-	$(".game-container").css("display", "grid");
-	$(".game-container").append(gridBox);
+	$(".game-wrapper").css(`grid-template-columns`, `repeat(${num1}, auto)`);
+	$(".game-wrapper").css("display", "grid");
+	$(".game-wrapper").append(gridBox);
 
 
 }
@@ -37,7 +37,7 @@ function resetGame() {
 	//To add modal here to check if user is sure they want to reset the game.
 
 	$(".card-wrapper").remove();
-	$(".game-container").css("display", "none");
+	$(".game-wrapper").css("display", "none");
 
 }
 

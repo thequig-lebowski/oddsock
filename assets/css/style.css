@@ -62,12 +62,13 @@ h4 {
 /*------------------Grid Layout------------------*/
 
 
-.game-container {
+.game-wrapper {
     display: none;  /*target this in .js and change to 'grid' to display game*/
     grid-template-columns: repeat(int, auto); /*target and change this to set dificulty level*/
     grid-gap: 10px;
     margin: 30px;
     justify-content: center;
+    perspective: 900px; /*this assumes the distance from the screen to the user*/
 }
 
 
@@ -103,7 +104,13 @@ button {
 }
 
 button:hover {
-    border: 4px solid blue; /*change this so the border doesn't mess layout. inner border?*/
+
+    border-style: inset;
+}
+
+button:focus {
+    outline: none;
+
 }
 
 .game-controls {
@@ -118,8 +125,14 @@ button:hover {
     position: relative;
     height: 115px;
     width: 115px;    
+}
 
+.card-wrapper.flipped .card-back {
+    transform: rotateY(-180deg);
+}
 
+.card-wrapper.flipped .card-front {
+    transform: rotateY(0deg);
 }
 
 .card {
@@ -131,8 +144,22 @@ button:hover {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    
+    backface-visibility: hidden;
+    transition: transform 450ms ease-in-out;
 
+
+}
+
+.card-back {
+    position: absolute;
+    background-color: blue;
+ 
+}
+
+.card-front {
+    position: absolute;
+    transform: rotateY(180deg);
+    background-color: white;
 
 }
 
@@ -148,22 +175,6 @@ button:hover {
     width: auto;
     height: 90%;
 }
-
-.card-back {
-    position: absolute;
-    background-color: blue;
-  
-    
-  
-}
-
-.card-front {
-    position: absolute;
-    display: none;
-
-}
-
-
 
 /*------------------Media Queries------------------*/
 
