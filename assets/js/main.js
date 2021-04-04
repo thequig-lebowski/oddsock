@@ -10,11 +10,38 @@ function startGame() {
 	let cards = Array.from(document.getElementsByClassName("card-wrapper"));
 
 	cards.forEach(card => {
-		card.addEventListener("click", function() {
-			//game play...
-			console.log("click");
-		});
+		card.addEventListener("click", flipCard);
 	});
+}
+
+let firstCard, secondCard;
+let isCardFlipped = false;
+
+function flipCard() {
+	this.classList.add("flipped");
+
+	if (!isCardFlipped) {
+		isCardFlipped = true;
+		firstCard = this;
+	} else {
+		isCardFlipped = false;
+		secondCard = this;
+
+		let card1 = firstCard.dataset.cardvalue;
+		let card2 = secondCard.dataset.cardvalue;
+
+		cardMatchCheck(card1, card2);
+	}
+}
+
+function cardMatchCheck(card1, card2) {
+	
+	if ( card1 === card2) {
+		console.log("It's a match!");
+	}else {
+		console.log("No, match. Try again");
+	}
+
 }
 
 function levelSelect(num1) {
@@ -32,7 +59,7 @@ function levelSelect(num1) {
 	for (let i = 0; i < totalPairs; i++) {
 		for (let j = 0; j < 2; j++) {
 			gridBox = `${gridBox}
-					<div class="card-wrapper">
+					<div class="card-wrapper" data-cardvalue="${i+1}">
 						<div class="card card-back">
 							<img class="back-image" src="assets/images/cardfront.png" alt="hidden card"/>
 						</div>
