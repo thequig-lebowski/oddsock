@@ -8,7 +8,6 @@ if (document.readyState === "loading") {
 
 function startGame() {
 	let cards = Array.from(document.getElementsByClassName("card-wrapper"));
-
 	cards.forEach(card => {
 		card.addEventListener("click", () => {
 			flipCard(card)
@@ -18,10 +17,12 @@ function startGame() {
 
 let firstCard, secondCard;
 let isCardFlipped = false;
+let gameBusy = false;
 
 function flipCard(card) {
 
 	if (canFlipCard(card)) {
+		console.log('can');
 
 		card.classList.add("flipped");
 
@@ -31,45 +32,55 @@ function flipCard(card) {
 		} else {
 			isCardFlipped = false;
 			secondCard = card;
+			gameBusy = true;
 
 			let card1 = firstCard.dataset.cardvalue;
 			let card2 = secondCard.dataset.cardvalue;
 
 			if (cardMatchCheck(card1, card2)) {
+				// it's a match sound and animation?
 				console.log("match!");
-			}else {
-				setTimeout( () => {
-					firstCard.classList.remove("flipped");
-					secondCard.classList.remove("flipped");
-				}, 700);
-			
+				gameBusy = false;
+			} else {
+				resetCards();
 			}
 		}
-	}else {
+	} else {
 		console.log("can't flipp");
 	}
 }
 
+function resetCards() {
+	// it's not a match sound?
+	// flippedCards = true;
+	setTimeout(() => {
+		firstCard.classList.remove("flipped");
+		secondCard.classList.remove("flipped");
+		console.log("inside timeout");
+		gameBusy = false;
+	}, 900);
+	console.log("outside timeout");
+	return true;
+}
+
 function cardMatchCheck(card1, card2) {
 
-	if (card1 === card2) {		
+	if (card1 === card2) {
 		return true;
 	} else {
-		// console.log("No, match. Try again");
-		// setTimeout( () => {
-		// 	card1.classList.remove("flipped");
-		// 	card2.classList.remove("flipped");
-		// }, 700);
-		// card1.classList.remove("flipped");
-		// card2.classList.remove("flipped");
 		return false;
 	}
 }
 
 function canFlipCard(card) {
 	// returns false if the current card is already flipped i.e. has 'flipped' class
-	return !card.classList.contains("flipped");
-	
+	return !card.classList.contains("flipped") && !gameBusy;
+	// let flippedCards  = document.getElementsByClassName("flipped").length;
+	// if ((flippedCards) < 2) {
+	// 	return true;
+	// } else
+	// return false;
+
 }
 
 function levelSelect(num1) {
@@ -111,7 +122,7 @@ function resetGame() {
 	//To add: modal here to check if user is sure they want to reset the game.
 	//To add: check what level is currently being played and match it.
 	$(".card-wrapper").remove();		//remove any previously generated game instances
-	$(".game-info").css("display", "none");
+	// $(".game-info").css("display", "none");
 
 	console.log('game reset');
 
