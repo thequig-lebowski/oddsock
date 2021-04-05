@@ -35,7 +35,15 @@ function flipCard(card) {
 			let card1 = firstCard.dataset.cardvalue;
 			let card2 = secondCard.dataset.cardvalue;
 
-			console.log(cardMatchCheck(card1, card2));
+			if (cardMatchCheck(card1, card2)) {
+				console.log("match!");
+			}else {
+				setTimeout( () => {
+					firstCard.classList.remove("flipped");
+					secondCard.classList.remove("flipped");
+				}, 700);
+			
+			}
 		}
 	}else {
 		console.log("can't flipp");
@@ -44,17 +52,22 @@ function flipCard(card) {
 
 function cardMatchCheck(card1, card2) {
 
-	if (card1 === card2) {
-		// console.log("It's a match!");
+	if (card1 === card2) {		
 		return true;
 	} else {
 		// console.log("No, match. Try again");
+		// setTimeout( () => {
+		// 	card1.classList.remove("flipped");
+		// 	card2.classList.remove("flipped");
+		// }, 700);
+		// card1.classList.remove("flipped");
+		// card2.classList.remove("flipped");
 		return false;
 	}
 }
 
 function canFlipCard(card) {
-	//if card clicked is already flipped  etc
+	// returns false if the current card is already flipped i.e. has 'flipped' class
 	return !card.classList.contains("flipped");
 	
 }
