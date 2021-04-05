@@ -24,6 +24,9 @@ function flipCard(card) {
 	if (canFlipCard(card)) {
 		console.log('can');
 
+		//increment #moves-total by one each time
+		flipCounter();
+
 		card.classList.add("flipped");
 
 		if (!isCardFlipped) {
@@ -41,6 +44,7 @@ function flipCard(card) {
 				// it's a match sound and animation?
 				console.log("match!");
 				gameBusy = false;
+				checkGameWin();
 			} else {
 				resetCards();
 			}
@@ -48,6 +52,14 @@ function flipCard(card) {
 	} else {
 		console.log("can't flipp");
 	}
+}
+
+function checkGameWin() {
+	// check to see when game is over
+}
+
+function gameOver() {
+	// game over when timer runs out
 }
 
 function resetCards() {
@@ -63,6 +75,14 @@ function resetCards() {
 	return true;
 }
 
+function flipCounter() {
+	
+	let clicks = $("#moves-total").text();
+	clicks ++;
+	$("#moves-total").text(clicks);
+
+}
+
 function cardMatchCheck(card1, card2) {
 
 	if (card1 === card2) {
@@ -75,11 +95,6 @@ function cardMatchCheck(card1, card2) {
 function canFlipCard(card) {
 	// returns false if the current card is already flipped i.e. has 'flipped' class
 	return !card.classList.contains("flipped") && !gameBusy;
-	// let flippedCards  = document.getElementsByClassName("flipped").length;
-	// if ((flippedCards) < 2) {
-	// 	return true;
-	// } else
-	// return false;
 
 }
 
