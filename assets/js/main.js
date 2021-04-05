@@ -1,6 +1,6 @@
 //Check for DOM to finish loading, then set game level to easy by default.
 
-if(document.readyState === "loading") {
+if (document.readyState === "loading") {
 	document.addEventListener("DOMContentLoaded", levelSelect(4));
 } else {
 	levelSelect(4);
@@ -10,46 +10,59 @@ function startGame() {
 	let cards = Array.from(document.getElementsByClassName("card-wrapper"));
 
 	cards.forEach(card => {
-		card.addEventListener("click", flipCard);
+		card.addEventListener("click", () => {
+			flipCard(card)
+		});
 	});
 }
 
 let firstCard, secondCard;
 let isCardFlipped = false;
 
-function flipCard() {
-	this.classList.add("flipped");
+function flipCard(card) {
 
-	if (!isCardFlipped) {
-		isCardFlipped = true;
-		firstCard = this;
-	} else {
-		isCardFlipped = false;
-		secondCard = this;
+	if (canFlipCard(card)) {
 
-		let card1 = firstCard.dataset.cardvalue;
-		let card2 = secondCard.dataset.cardvalue;
+		card.classList.add("flipped");
 
-		cardMatchCheck(card1, card2);
+		if (!isCardFlipped) {
+			isCardFlipped = true;
+			firstCard = card;
+		} else {
+			isCardFlipped = false;
+			secondCard = card;
+
+			let card1 = firstCard.dataset.cardvalue;
+			let card2 = secondCard.dataset.cardvalue;
+
+			console.log(cardMatchCheck(card1, card2));
+		}
+	}else {
+		console.log("can't flipp");
 	}
 }
 
 function cardMatchCheck(card1, card2) {
-	
-	if ( card1 === card2) {
-		console.log("It's a match!");
-	}else {
-		console.log("No, match. Try again");
-	}
 
+	if (card1 === card2) {
+		// console.log("It's a match!");
+		return true;
+	} else {
+		// console.log("No, match. Try again");
+		return false;
+	}
+}
+
+function canFlipCard(card) {
+	//if card clicked is already flipped  etc
+	return !card.classList.contains("flipped");
+	
 }
 
 function levelSelect(num1) {
 
 	//To add if statement to check if the difficulty level selected is already the level
 	//being displayed, use .preventDefualt() else resetGame().
-
-
 
 	resetGame();
 
@@ -59,7 +72,7 @@ function levelSelect(num1) {
 	for (let i = 0; i < totalPairs; i++) {
 		for (let j = 0; j < 2; j++) {
 			gridBox = `${gridBox}
-					<div class="card-wrapper" data-cardvalue="${i+1}">
+					<div class="card-wrapper" data-cardvalue="${i + 1}">
 						<div class="card card-back">
 							<img class="back-image" src="assets/images/cardfront.png" alt="hidden card"/>
 						</div>
