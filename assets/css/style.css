@@ -58,6 +58,54 @@ h4 {
     position: relative;
     left: 1.3vw;
 }
+
+/*------------------Overlays------------------*/
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    font-family: 'Dela Gothic One', cursive;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.overlay h1 {
+    font-size: 1em;
+}
+
+.overlay h3 {
+
+}
+
+.game-over {
+    display: none;
+}
+
+.you-win {
+    display: none;
+}
+
+.overlay.visible {
+    display: flex;
+    animation: grow 900ms forwards;
+}
+
+@keyframes grow {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+        font-size: 0;
+    }
+    to {
+        font-size: 8vw;
+        background-color: rgba(0, 0, 0, .5);
+    }
+}
+
 /*------------------Grid Layout------------------*/
 
 

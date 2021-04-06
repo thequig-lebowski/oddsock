@@ -16,16 +16,25 @@
 		</h1>
 	</header>
 	<main>
+		<div class="overlay game-over">
+			<h1>Game Over</h1>
+			<h4>Play Agian?</h4>
+		</div>
+		<div class="overlay you-win">
+			<h1>You Win</h1>
+			<h3>Play Again?</h3>
+			<p>Moves<span id="moves"></span>Time<span id="time"></span></p>
+		</div>
 		<div class="game-controls">
-			<button id="easy" onclick="levelSelect(4, 5)">
+			<button id="easy" onclick="levelSelect(4, 100)">
 				<h4>Easy</h4>
 			</button>
 			<button id="medium" onclick="levelSelect(6, 200)">
-				<h4>Medium</h4>
+				<h4>Difficult</h4>
 			</button>
-			<button id="hard" onclick="levelSelect(8, 300)">
+			<!-- <button id="hard" onclick="levelSelect(8, 300)">
 				<h4>Hard</h4>
-			</button>
+			</button> -->
 			<button id="reset" onclick="resetGame()">
 				<h4>Reset</h4>
 			</button>

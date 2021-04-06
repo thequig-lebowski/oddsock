@@ -1,14 +1,16 @@
 
-
+//controll z
 let firstCard, secondCard;
 let isCardFlipped = false;
 let gameBusy = false;
 let totalTime;
 let countdownTimer;
-let deck;
+let cards;
 let currentLevel;
 let matchedPairs = 0;
 let totalPairs;
+let endTime;
+let totalMoves;
 
 //Check for DOM to finish loading, then set game level to easy by default.
 if (document.readyState === "loading") {
@@ -20,7 +22,7 @@ if (document.readyState === "loading") {
 function startGame(time) {
 	resetTimer();
 	startTimer(time);
-	let cards = Array.from(document.getElementsByClassName("card-wrapper"));
+
 	cards.forEach(card => {
 		card.addEventListener("click", () => {
 			flipCard(card)
@@ -31,15 +33,16 @@ function startGame(time) {
 
 
 //Fisher-Yates Shuffle Method
-function shuffleCards(deck) {
+function shuffleCards(cards) {
 
-	for (let i = deck.length - 1; i > 0; i--) {
+	for (let i = cards.length - 1; i > 0; i--) {
 		let randPosition = Math.floor(Math.random() * (i + 1));
-		deck[randPosition].style.order = i;
-		deck[i].style.order = randPosition;
+		cards[randPosition].style.order = i;
+		cards[i].style.order = randPosition;
 	}
 }
 
+//--------------------------------------Timer function
 
 function startTimer(time) {
 	console.log("timer running");
@@ -85,7 +88,6 @@ function flipCard(card) {
 
 			if (cardMatchCheck(card1, card2)) {
 				// it's a match sound and animation?
-				console.log("match!");
 				matchedPairs++;
 				gameBusy = false;
 				checkGameWin();
@@ -98,18 +100,25 @@ function flipCard(card) {
 
 function checkGameWin() {
 	// check to see when game is over
-	if (matchedPairs <= totalPairs-2) {
+	if (matchedPairs <= totalPairs - 2) {
 		console.log(matchedPairs + " of " + totalPairs);
-		// return;
+
 	} else {
-		console.log("game over, you win!");
+		victory();
 		// flip remainin pair of cards
-		// let remainder = document.getElementsByClassName("card-wrapper");
-		// flipCard(remainder[0,1]);
-		let remain = $(".card-wrapper:not(.flipped)");
-		remain[0].classList.add("flipped");
-		remain[1].classList.add("flipped");
+		setTimeout(() => {
+			let remain = $(".card-wrapper:not(.flipped)");
+			remain[0].classList.add("flipped");
+			remain[1].classList.add("flipped");
+		}, 400);
 	}
+}
+
+function victory() {
+
+	endTime = $("#countdown").text();
+	totalMoves = $("#moves-total").text();
+	
 }
 
 function resetCards() {
@@ -184,10 +193,11 @@ function levelSelect(num1, time) {
 	// 	this.classList.add(".card-wrapper.small");
 	// 	console.log("small");
 	// }
-
-	deck = Array.from(document.getElementsByClassName("card-wrapper"));
+	cards = Array.from(document.getElementsByClassName("card-wrapper"));
+	// deck = Array.from(document.getElementsByClassName("card-wrapper"));
+	shuffleCards(cards);
 	startGame(time);
-	shuffleCards(deck);
+
 
 
 }
