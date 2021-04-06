@@ -1,12 +1,22 @@
 //Check for DOM to finish loading, then set game level to easy by default.
 
+let firstCard, secondCard;
+let isCardFlipped = false;
+let gameBusy = false;
+let totalTime;
+var timerRunning = false;
+let countdownTimer;
+
 if (document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", levelSelect(4));
+	document.addEventListener("DOMContentLoaded", levelSelect(4, 100));
 } else {
-	levelSelect(4);
+	levelSelect(4, 100);
 }
 
-function startGame() {
+function startGame(time) {
+	resetTimer();
+	startTimer(time);
+	// timerRunning = true;
 	let cards = Array.from(document.getElementsByClassName("card-wrapper"));
 	cards.forEach(card => {
 		card.addEventListener("click", () => {
@@ -15,9 +25,35 @@ function startGame() {
 	});
 }
 
-let firstCard, secondCard;
-let isCardFlipped = false;
-let gameBusy = false;
+function startTimer(time) {
+	if (timerRunning) {
+		console.log("cant't start timmer" + timerRunning);
+		return;
+	} else {
+		// timerRunning = true;
+		console.log("timer running");
+		countdownTimer = setInterval(() => {
+			let newTime = time--;
+			$("#countdown").text(newTime);
+
+			if (newTime === 0) {
+				// clearInterval(countdownTimer);
+				resetTimer();
+				gameOver();
+				timerRunning = false;
+			}
+		}, 1000);
+	}
+}
+
+function resetTimer() {
+	// game over when timer runs out
+	clearInterval(countdownTimer);
+}
+
+function gameOver() {
+	console.log("game over");
+}
 
 function flipCard(card) {
 
@@ -56,10 +92,7 @@ function flipCard(card) {
 
 function checkGameWin() {
 	// check to see when game is over
-}
-
-function gameOver() {
-	// game over when timer runs out
+	console.log("You Win!");
 }
 
 function resetCards() {
@@ -68,17 +101,15 @@ function resetCards() {
 	setTimeout(() => {
 		firstCard.classList.remove("flipped");
 		secondCard.classList.remove("flipped");
-		console.log("inside timeout");
 		gameBusy = false;
 	}, 900);
-	console.log("outside timeout");
 	return true;
 }
 
 function flipCounter() {
-	
+
 	let clicks = $("#moves-total").text();
-	clicks ++;
+	clicks++;
 	$("#moves-total").text(clicks);
 
 }
@@ -98,7 +129,7 @@ function canFlipCard(card) {
 
 }
 
-function levelSelect(num1) {
+function levelSelect(num1, time) {
 
 	//To add if statement to check if the difficulty level selected is already the level
 	//being displayed, use .preventDefualt() else resetGame().
@@ -107,6 +138,10 @@ function levelSelect(num1) {
 
 	let totalPairs = (num1 * num1) / 2; //calculate the required number of divs
 	let gridBox = "";	//create an empty string to hold the generated html
+
+	$("#countdown").text(time);
+	totalTime = time;
+
 
 	for (let i = 0; i < totalPairs; i++) {
 		for (let j = 0; j < 2; j++) {
@@ -126,7 +161,7 @@ function levelSelect(num1) {
 	$(".game-wrapper").css("display", "grid");
 	$(".game-wrapper").append(gridBox);
 
-	startGame();
+	startGame(time);
 
 
 }
@@ -138,7 +173,7 @@ function resetGame() {
 	//To add: check what level is currently being played and match it.
 	$(".card-wrapper").remove();		//remove any previously generated game instances
 	// $(".game-info").css("display", "none");
-
+	$("#moves-total").text(0);
 	console.log('game reset');
 
 }
