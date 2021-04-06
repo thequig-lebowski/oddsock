@@ -1,4 +1,4 @@
-//Check for DOM to finish loading, then set game level to easy by default.
+
 
 let firstCard, secondCard;
 let isCardFlipped = false;
@@ -6,7 +6,9 @@ let gameBusy = false;
 let totalTime;
 var timerRunning = false;
 let countdownTimer;
+let deck;
 
+//Check for DOM to finish loading, then set game level to easy by default.
 if (document.readyState === "loading") {
 	document.addEventListener("DOMContentLoaded", levelSelect(4, 100));
 } else {
@@ -16,28 +18,38 @@ if (document.readyState === "loading") {
 function startGame(time) {
 	resetTimer();
 	startTimer(time);
-	// timerRunning = true;
 	let cards = Array.from(document.getElementsByClassName("card-wrapper"));
 	cards.forEach(card => {
 		card.addEventListener("click", () => {
 			flipCard(card)
 		});
 	});
+
 }
+
+
+//Fisher-Yates Shuffle Method
+function shuffleCards(deck) {
+
+	for(let i = deck.length - 1; i > 0; i--) {
+		let randPosition = Math.floor(Math.random() * (i + 1));
+		deck[randPosition].style.order = i;
+		deck[i].style.order = randPosition;
+	}
+}
+
 
 function startTimer(time) {
 	if (timerRunning) {
-		console.log("cant't start timmer" + timerRunning);
+		console.log("cant't start timmer");
 		return;
 	} else {
-		// timerRunning = true;
 		console.log("timer running");
 		countdownTimer = setInterval(() => {
 			let newTime = time--;
 			$("#countdown").text(newTime);
 
 			if (newTime === 0) {
-				// clearInterval(countdownTimer);
 				resetTimer();
 				gameOver();
 				timerRunning = false;
@@ -58,11 +70,10 @@ function gameOver() {
 function flipCard(card) {
 
 	if (canFlipCard(card)) {
-		console.log('can');
+		console.log('can flip');
 
 		//increment #moves-total by one each time
 		flipCounter();
-
 		card.classList.add("flipped");
 
 		if (!isCardFlipped) {
@@ -97,7 +108,6 @@ function checkGameWin() {
 
 function resetCards() {
 	// it's not a match sound?
-	// flippedCards = true;
 	setTimeout(() => {
 		firstCard.classList.remove("flipped");
 		secondCard.classList.remove("flipped");
@@ -161,7 +171,9 @@ function levelSelect(num1, time) {
 	$(".game-wrapper").css("display", "grid");
 	$(".game-wrapper").append(gridBox);
 
+	deck = Array.from(document.getElementsByClassName("card-wrapper"));
 	startGame(time);
+	shuffleCards(deck);
 
 
 }
@@ -172,7 +184,6 @@ function resetGame() {
 	//To add: modal here to check if user is sure they want to reset the game.
 	//To add: check what level is currently being played and match it.
 	$(".card-wrapper").remove();		//remove any previously generated game instances
-	// $(".game-info").css("display", "none");
 	$("#moves-total").text(0);
 	console.log('game reset');
 
