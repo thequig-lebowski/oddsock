@@ -225,6 +225,11 @@ button:focus {
 
 }
 
+.card-front.selected {
+    border: 2px solid red;
+    
+}
+
 .back-image {                     /*washingmachine*/
     position: absolute;
     width: auto;

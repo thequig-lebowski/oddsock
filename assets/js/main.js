@@ -79,6 +79,7 @@ function flipCard(card) {
 		//increment #moves-total by one each time
 		flipCounter();
 		card.classList.add("flipped");
+		card.children[1].classList.add("selected");
 
 		if (!isCardFlipped) {
 			isCardFlipped = true;
@@ -88,19 +89,41 @@ function flipCard(card) {
 			secondCard = card;
 			gameBusy = true;
 
-			let card1 = firstCard.dataset.cardvalue;
-			let card2 = secondCard.dataset.cardvalue;
 
-			if (cardMatchCheck(card1, card2)) {
+
+			if (cardMatchCheck(firstCard, secondCard)) {
 				// it's a match sound and animation?
+				cardHighlight(firstCard, secondCard);
 				matchedPairs++;
 				gameBusy = false;
-				checkGameWin();
+				checkGameWin();				
 			} else {
 				resetCards();
+			
 			}
 		}
 	}
+}
+//control z
+function cardMatchCheck(card1, card2) {
+
+	card1 = firstCard.dataset.cardvalue;
+	card2 = secondCard.dataset.cardvalue;
+
+	if (card1 === card2) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+//--------------------------------------Highlight Card Select
+function cardHighlight(firstCard, secondCard) {
+	setTimeout(() => {
+		firstCard.children[1].classList.remove("selected");
+		secondCard.children[1].classList.remove("selected");
+	}, 900);
+	
 }
 
 //--------------------------------------Check to see when game is over
@@ -159,14 +182,6 @@ function flipCounter() {
 
 }
 
-function cardMatchCheck(card1, card2) {
-
-	if (card1 === card2) {
-		return true;
-	} else {
-		return false;
-	}
-}
 
 //--------------------------------------Prevent click during animations and on already matched cards
 function canFlipCard(card) {
