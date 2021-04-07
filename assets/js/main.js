@@ -4,15 +4,16 @@ let firstCard, secondCard;
 let isCardFlipped = false;
 let gameBusy = false;
 let totalTime;
-let countdownTimer;
+var countdownTimer;
 let cards;
 let currentLevel;
 let matchedPairs = 0;
-let totalPairs;
+let totalPairs; //number of pairs of cards on the board
 let endTime;
 let totalMoves;
 let timeLimit;
-let finalScore;
+let finalScore = 0;
+let canTime = true;
 
 //Check for DOM to finish loading, then set game level to easy by default.
 if (document.readyState === "loading") {
@@ -23,6 +24,7 @@ if (document.readyState === "loading") {
 
 //--------------------------------------Start Game
 function startGame(time) {
+	canTime = true;
 	resetTimer();
 	startTimer(time);
 
@@ -48,11 +50,13 @@ function shuffleCards(cards) {
 //--------------------------------------Timer function
 function startTimer(time) {
 	countdownTimer = setInterval(() => {
-		let newTime = time--;
-		$("#countdown").text(newTime);
-		if (newTime === 0) {
-			resetTimer();
-			gameOver();
+		if (canTime) {
+			let newTime = time--;
+			$("#countdown").text(newTime);
+			if (newTime === 0) {
+				resetTimer();
+				gameOver();
+			}
 		}
 	}, 1000);
 }
@@ -103,6 +107,7 @@ function flipCard(card) {
 function checkGameWin() {
 	// check to see when game is over
 	if (matchedPairs <= totalPairs - 2) {
+		return;
 	} else {
 		victory();
 		// flip remainin pair of cards
@@ -119,13 +124,19 @@ function victory() {
 	//Display You win overlay
 	endTime = $("#countdown").text();
 	totalMoves = $("#moves-total").text();
-	//calculate final score
-	let elapsedTime = totalTime - endTime; 
-	console.log(elapsedTime);
-	finalScore = Math.floor((elapsedTime / totalMoves) * 100);
-	console.log("your score is " + finalScore);
 
-	
+	canTime = false;
+
+	//calculate final score
+	let elapsedTime = totalTime - endTime;
+	let movesOver = (parseInt(totalMoves) + 2) - (totalPairs * 2);
+	console.log("elaspsed time " + elapsedTime);
+	console.log("moves over " + movesOver);
+	resetTimer();
+	// finalScore = endTime / 
+	// console.log("your score is " + finalScore);
+
+
 }
 
 //--------------------------------------Reset Cards (unflip)
