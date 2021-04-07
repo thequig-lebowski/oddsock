@@ -173,12 +173,14 @@ button:focus {
     position: relative;
     height: 115px;
     width: 115px;    
-    /* text-shadow:
-    3px 3px 0 #000, 
-  -1px -1px 0 #000,  
-   1px -1px 0 #000,
-   -1px 1px 0 #000,
-    1px 1px 0 #000; */
+    transition: all .4s ease-in-out;
+    transform: scale(.95);
+
+}
+
+.card-wrapper:hover {
+    /* border: 2px solid red; */
+    transform: scale(1);
 }
 
 .card-wrapper:hover {
@@ -225,10 +227,7 @@ button:focus {
 
 }
 
-.card-front.selected {
-    border: 2px solid red;
-    
-}
+
 
 .back-image {                     /*washingmachine*/
     position: absolute;

@@ -79,7 +79,8 @@ function flipCard(card) {
 		//increment #moves-total by one each time
 		flipCounter();
 		card.classList.add("flipped");
-		card.children[1].classList.add("selected");
+		// card.children[1].classList.add("selected");
+		card.classList.add("selected");
 
 		if (!isCardFlipped) {
 			isCardFlipped = true;
@@ -104,7 +105,7 @@ function flipCard(card) {
 		}
 	}
 }
-//control z
+
 function cardMatchCheck(card1, card2) {
 
 	card1 = firstCard.dataset.cardvalue;
@@ -120,8 +121,10 @@ function cardMatchCheck(card1, card2) {
 //--------------------------------------Highlight Card Select
 function cardHighlight(firstCard, secondCard) {
 	setTimeout(() => {
-		firstCard.children[1].classList.remove("selected");
-		secondCard.children[1].classList.remove("selected");
+		// firstCard.children[1].classList.remove("selected");
+		// secondCard.children[1].classList.remove("selected");
+		firstCard.classList.remove("selected");
+		secondCard.classList.remove("selected");
 	}, 900);
 	
 }
