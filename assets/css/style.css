@@ -23,7 +23,7 @@ body {
 
 .main-header {
     font-family: SafirScript;
-    font-size: 9vw;
+    font-size: clamp(50px, 9vw, 75px);
     text-align: center;
     padding-top: 20px;
     color: red;
@@ -48,7 +48,7 @@ h1 {
 
 button h4 {
     font-family: inherit;
-    font-size: 3.5vw;
+    font-size: clamp(18px, 3.5vw, 32px);
     margin-bottom: .2rem;
     font-weight: 400;
     margin-top: 0;
@@ -64,18 +64,13 @@ h4:hover {
     left: 1.3vw;
 }
 
-img {
-    image-rendering: -moz-crisp-edges; /* Firefox */
-    image-rendering: -o-crisp-edges; /* Opera */
-    image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
-    image-rendering: crisp-edges;
-    -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
-}
 
 /*------------------Overlays------------------*/
 
 .overlay {
     position: fixed;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
     right: 0;
@@ -85,22 +80,19 @@ img {
     align-items: center;
     color: white;
     background-color: rgba(0, 0, 0, 0.7);
-    /* background: radial-gradient(rgba(0, 0, 0, .7), rgba(255, 255, 255, .7)); */
-    /* font-size: 2vw; */
     flex-direction: column;
     font-family: 'Dela Gothic One', serif;
     transition: background-color 500ms, font-size 500ms;
     cursor: pointer;
+    white-space: nowrap;
+    overflow-wrap: normal;
     
 }
 
-.overlay h2 {
-    background-color: pink;
-
-}
-
-.overlay h1 {
-    font-size: 1em;
+.overlay > p {
+    /* display: inline; */
+    overflow: hidden;
+    white-space: pre-line;
 }
 
 .start-game {
@@ -116,7 +108,7 @@ img {
 }
 
 .overlay.visible {
-    display: flex !important;
+    display: flex;
     animation: grow 900ms forwards;
 }
 
@@ -131,40 +123,18 @@ img {
     }
 }
 
-/*------------------Grid Layout------------------*/
-
-
-.game-wrapper {
-    display: none;  /*target this in .js and change to 'grid' to display game*/
-    grid-template-columns: repeat(int, auto); /*target and change this to set dificulty level*/
-    grid-gap: 10px;
-    margin: 30px;
-    justify-content: center;
-    perspective: 900px; /*this assumes the distance from the screen to the user*/
-}
-
-
-.game-info {
-    display: flex;
-    justify-content: space-between;
-    grid-column: 1 / -1;
-    font-family: 'Dela Gothic One', serif;
-    font-size: min(18px, 3vw);
-    
-}
-
 
 /*------------------Links------------------*/
 
 a {
-    color: inherit !important;
+    color: inherit ;
     text-decoration: none;
 
 }
 
 a:hover {
     color: inherit;
-    text-decoration: none !important;    
+    text-decoration: none;    
 }
 
 /*------------------Buttons------------------*/
@@ -173,18 +143,15 @@ button {
     border-radius: 4px;
     font-family: 'Dela Gothic One', serif;
     cursor: pointer;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
 }
 
 button:hover {
-
     border-style: inset;
 }
 
 button:focus {
     outline: none;
-
 }
 
 .game-controls {
@@ -192,23 +159,41 @@ button:focus {
     padding-top: 10px;
 }
 
+/*------------------Grid Layout------------------*/
+
+
+.game-wrapper {
+    display: none;  /*target this in .js and change to 'grid' to display game*/
+    grid-template-columns: repeat(int, auto); /*target and change this to set dificulty level*/
+    /* grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); */
+    grid-gap: 10px;
+    margin: 30px;
+
+
+    justify-content: center;
+    perspective: 900px; /*this assumes the distance from the screen to the user*/
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    grid-column: 1 / -1;
+    font-family: 'Dela Gothic One', serif;
+    font-size: clamp(18px, 3vw, 24px);
+}
+
 /*------------------Cards------------------*/
 
 .card-wrapper {
-    
     position: relative;
     height: 115px;
     width: 115px;  
     border-radius: 11px;
-
 }
 
 .card-front.selected {
     border: 3px solid #0ecaf0; 
 }
-
-    
-
 
 .card-wrapper:hover {
     cursor: pointer;
@@ -234,7 +219,6 @@ button:focus {
     backface-visibility: hidden;
     transition: transform 450ms ease-in-out;   
     
-
 }
 
 .card-back {
@@ -254,8 +238,6 @@ button:focus {
     box-shadow: 0 4px 8px 0 rgba(53, 37, 37, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19), inset 0 0 30px 5px #9ac0eb;
 }
 
-
-
 .back-image {                     /*washingmachine*/
     position: absolute;
     width: auto;
@@ -273,9 +255,9 @@ button:focus {
 
 /* On screens that are 992px wide or less*/
 @media screen and (min-width: 992px) {
-        .main-header{
+        /* .main-header{
             font-size: 72px;
-        }
+        } */
   }
 
 /* On screens that are 767px wide or less*/

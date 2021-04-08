@@ -1,7 +1,7 @@
 //Variable declaration
 
 let firstCard, secondCard;
-let isCardFlipped = false;
+let isFlipped = false;
 let gameBusy = false;
 let totalTime;
 var countdownTimer;
@@ -14,13 +14,13 @@ let totalMoves;
 let finalScore = 0;
 let canTime = false;
 let canReset = true;
+let canVictory = true;
 
 // Check for DOM to finish loading, then set game level to easy by default.
-
 if (document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", levelSelect(4, 10));
+	document.addEventListener("DOMContentLoaded", levelSelect(4, 100));
 } else {
-	levelSelect(4, 10);
+	levelSelect(4, 100);
 }
 
 //--------------------------------------Level Select
@@ -79,6 +79,7 @@ function startGame() {
 
 //--------------------------------------Timer function
 function startTimer() {
+
 	let time = totalTime;
 	countdownTimer = setInterval(() => {
 		if (canTime) {
@@ -116,11 +117,11 @@ function flipCard(card) {
 		card.classList.add("flipped");
 		card.children[1].classList.add("selected");
 
-		if (!isCardFlipped) {
-			isCardFlipped = true;
+		if (!isFlipped) {
+			isFlipped = true;
 			firstCard = card;
 		} else {
-			isCardFlipped = false;
+			isFlipped = false;
 			secondCard = card;
 			gameBusy = true;
 
@@ -140,13 +141,15 @@ function flipCard(card) {
 //--------------------------------------Check Card Match
 function cardMatchCheck(card1, card2) {
 	//compare the datasets of flipped cards to see if they are a match
-	card1 = firstCard.dataset.cardvalue;
-	card2 = secondCard.dataset.cardvalue;
+	if (canVictory) {
+		card1 = firstCard.dataset.cardvalue;
+		card2 = secondCard.dataset.cardvalue;
 
-	if (card1 === card2) {
-		return true;
-	} else {
-		return false;
+		if (card1 === card2) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 
@@ -181,7 +184,7 @@ function victory() {
 	endTime = $("#countdown").text();
 	totalMoves = $("#moves-total").text();
 	canTime = false;//freeze the timer
-	
+
 	pauseOverlay();
 
 	//calculate final score
@@ -199,7 +202,6 @@ function victory() {
 	//Display You win overlay
 	setTimeout(() => {
 		$(".you-win").addClass("visible");
-		console.log("you win set timeout");
 	}, 1400);
 
 	canTime = true;//unfreeze the timer.
@@ -207,18 +209,21 @@ function victory() {
 
 //--------------------------------------Game Over
 function gameOver() {
-	
+
+	canVictory = false;
 	pauseOverlay();
 
 	setTimeout(() => {
 		$(".game-over").addClass("visible");
+		canVictory = true;
 	}, 1000);
 
 	canTime = true;// unfreeze the timer
 }
 
+//--------------------------------------Pause Clicking Overlays
 function pauseOverlay() {
-//Prevent overlay from being accidentially clicked for a short moment.
+	//Prevent overlay from being accidentially clicked for a short moment.
 	canReset = false;
 	setTimeout(() => {
 		canReset = true;

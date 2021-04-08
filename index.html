@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<header class="game-title">
+	<header>
 		<h1 class="main-header">
 			<a href="#">Laundr<span id="special-spacing">-</span>O-Match</a>
 		</h1>
@@ -19,8 +19,8 @@
 	<main>
 		<!-- Overlays for start game, rules, game over and game win -->
 		<div class="overlay start-game visible" onclick="resetGame(this)">
-			<h2>Start Game</h2>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, aut.</p>
+			<h2>Laundr-O-Match</h2>
+			<p>Click to tourn over cards. Try and find the matching pairs before the time runs out!</p>
 			<h4 id="start" >Click to Start</h4>
 		</div>
 		<div class="overlay game-over" onclick="resetGame(this)">
@@ -28,21 +28,17 @@
 			<h4 class="play-again" >Click to Play Again</h4>
 		</div>
 		<div class="overlay you-win" onclick="resetGame(this)">
-			<h2>You Win</h2>
+			<h2>Winner!</h2>
+			<p>Your Score <span id="score"> </span></p>
 			<h4 class="play-again">Click to Play Again</h4>
-			<p>Moves <span id="moves"> </span> Time <span id="time"> </span> 
-			Score <span id="score"> </span></p>
 		</div>
 		<div class="game-controls">
-			<button id="easy" onclick="levelSelect(4, 5)">
+			<button id="easy" onclick="levelSelect(4, 100)">
 				<h4>Easy</h4>
 			</button>
-			<button id="medium" onclick="levelSelect(6, 5)">
+			<button id="medium" onclick="levelSelect(6, 200)">
 				<h4>Difficult</h4>
 			</button>
-			<!-- <button id="hard" onclick="levelSelect(8, 300)">
-				<h4>Hard</h4>
-			</button> -->
 			<button id="reset" onclick="resetGame(null)">
 				<h4>Reset</h4>
 			</button>
