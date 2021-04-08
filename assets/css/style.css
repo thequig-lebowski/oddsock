@@ -46,7 +46,7 @@ h1 {
     line-height: 1.2;
 }
 
-h4 {
+button h4 {
     font-family: inherit;
     font-size: 3.5vw;
     margin-bottom: .2rem;
@@ -81,11 +81,21 @@ img {
     right: 0;
     bottom: 0;
     z-index: 100;
-    font-family: 'Dela Gothic One', cursive;
     justify-content: center;
     align-items: center;
     color: white;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
+    /* background: radial-gradient(rgba(0, 0, 0, .7), rgba(255, 255, 255, .7)); */
+    /* font-size: 2vw; */
+    flex-direction: column;
+    font-family: 'Dela Gothic One', serif;
+    transition: background-color 500ms, font-size 500ms;
+    
+}
+
+.overlay h2 {
+    background-color: pink;
+
 }
 
 .overlay h1 {
@@ -93,7 +103,7 @@ img {
 }
 
 .start-game {
-    display: flex;
+    display: none;
 }
 
 .game-over {
@@ -137,7 +147,7 @@ img {
     display: flex;
     justify-content: space-between;
     grid-column: 1 / -1;
-    font-family: 'Dela Gothic One', cursive;
+    font-family: 'Dela Gothic One', serif;
     font-size: min(18px, 3vw);
     
 }
@@ -160,7 +170,7 @@ a:hover {
 
 button {
     border-radius: 4px;
-    font-family: 'Dela Gothic One', cursive;
+    font-family: 'Dela Gothic One', serif;
     cursor: pointer;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     

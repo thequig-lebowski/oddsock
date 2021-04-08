@@ -11,7 +11,6 @@ let matchedPairs = 0;
 let totalPairs; //number of pairs of cards on the board
 let endTime;
 let totalMoves;
-// let timeLimit;
 let finalScore = 0;
 let canTime = false;
 
@@ -33,13 +32,11 @@ if (document.readyState === "loading") {
 //--------------------------------------Level Select
 function levelSelect(num1, time) {
 
+	console.log("level select canTime = " + canTime);
+
 	currentLevel = num1;
-	// timeLimit = time;
 	totalTime = time;
 	matchedPairs = 0;
-
-	//To add if statement to check if the difficulty level selected is already the level
-	//being displayed, use .preventDefualt() else resetGame().
 
 	clearGameBoard();
 
@@ -75,20 +72,11 @@ function levelSelect(num1, time) {
 
 }
 
-//--------------------------------------Play Again/Start Screen
-function overlay(elm, bool) {
-	if(bool){
-		resetGame();
-	}
-	elm.parentNode.style.display = "none";
-	canTime = true;
-}
-
 //--------------------------------------Start Game
 function startGame() {
-	// canTime = true;
+
 	resetTimer();
-	startTimer(time);
+	startTimer();
 	cards.forEach(card => {
 		card.addEventListener("click", () => {
 			flipCard(card)
@@ -124,15 +112,7 @@ function shuffleCards(cards) {
 
 //--------------------------------------Reset Timer
 function resetTimer() {
-	// game over when timer runs out
 	clearInterval(countdownTimer);
-}
-
-//--------------------------------------Game Over
-function gameOver() {
-	setTimeout(() => {
-		$(".game-over").css("display", "flex");
-	}, 1000);
 }
 
 //--------------------------------------Flip Card
@@ -152,17 +132,14 @@ function flipCard(card) {
 			secondCard = card;
 			gameBusy = true;
 
-
-
+//check the two flipped cards against each other using thier datasets
 			if (cardMatchCheck(firstCard, secondCard)) {
-				// it's a match sound and animation?
 				cardHighlight(firstCard, secondCard);
 				matchedPairs++;
 				gameBusy = false;
 				checkGameWin();				
 			} else {
 				resetCards();
-			
 			}
 		}
 	}
@@ -170,7 +147,7 @@ function flipCard(card) {
 
 //--------------------------------------Check Card Match
 function cardMatchCheck(card1, card2) {
-
+ //compare the datasets of flipped cards to see if they are a match
 	card1 = firstCard.dataset.cardvalue;
 	card2 = secondCard.dataset.cardvalue;
 
@@ -183,6 +160,7 @@ function cardMatchCheck(card1, card2) {
 
 //--------------------------------------Highlight Card Select
 function cardHighlight(firstCard, secondCard) {
+	//remove the boarder from around already matched pairs of cards
 	setTimeout(() => {
 		firstCard.children[1].classList.remove("selected");
 		secondCard.children[1].classList.remove("selected");
@@ -197,7 +175,7 @@ function checkGameWin() {
 		return;
 	} else {
 		victory();
-		// flip remainin pair of cards
+		// flip remaining pair of cards auctomatically as this is an obvious pair.
 		setTimeout(() => {
 			let remain = $(".card-wrapper:not(.flipped)");
 			remain[0].classList.add("flipped");
@@ -206,37 +184,53 @@ function checkGameWin() {
 	}
 }
 
+
 //--------------------------------------Victory
 function victory() {
-	//Display You win overlay
+
+	console.log("Victory!");
+	
 	endTime = $("#countdown").text();
 	totalMoves = $("#moves-total").text();
-
 	canTime = false;
 
 	//calculate final score
 	let elapsedTime = totalTime - endTime;
 	let movesOver = (parseInt(totalMoves) + 2) - (totalPairs * 2);
-	console.log("elaspsed time " + elapsedTime);
-	console.log("moves over " + movesOver);
 	resetTimer();
+	
+	// finalScore calculation to go here
 
+	//Set the text for the score and time
 	$("#moves").text(totalMoves);
 	$("#time").text(elapsedTime);
 	$("#score").text("TBC");
 
+	//Display You win overlay
 	setTimeout(() => {
-		$(".you-win").css("display", "flex");
+		// $(".you-win").css("display", "flex");
+		$(".you-win").addClass("visible");
 	}, 1400);
-	// finalScore = endTime / 
-	// console.log("your score is " + finalScore);
+	
+	canTime = true;
+	console.log("Victory canTime = " + canTime);
+}
 
+//--------------------------------------Game Over
+function gameOver() {
 
+	setTimeout(() => {
+		// $(".game-over").css("display", "flex");
+		$(".game-over").addClass("visible");
+	}, 1000);
+
+	canTime = true;
+	console.log("Game over canTime is = " + canTime);
 }
 
 //--------------------------------------Reset Cards (unflip)
 function resetCards() {
-	// it's not a match sound?
+	// reset cards after a short delay when flipped pair are not a match
 	setTimeout(() => {
 		firstCard.classList.remove("flipped");
 		secondCard.classList.remove("flipped");
@@ -247,11 +241,10 @@ function resetCards() {
 
 //--------------------------------------Move Counter
 function flipCounter() {
-
+	//increment moves counter by 1 for each card flip
 	let clicks = $("#moves-total").text();
 	clicks++;
 	$("#moves-total").text(clicks);
-
 }
 
 
@@ -259,23 +252,22 @@ function flipCounter() {
 function canFlipCard(card) {
 	// returns false if the current card is already flipped i.e. has 'flipped' class
 	return !card.classList.contains("flipped") && !gameBusy;
-
 }
 
 //--------------------------------------Reset Game
-function resetGame() {
+function resetGame(elm) {
+
 	levelSelect(currentLevel, totalTime);
+	// target parent element of click event and remove attribute to hide screen
+	elm.parentNode.remove(".visible");
+	canTime = true;
 }
 
 //--------------------------------------Remove previously generated card divs
 function clearGameBoard() {
-
-	//To add: modal here to check if user is sure they want to reset the game.
-	//To add: check what level is currently being played and match it.
-	$(".card-wrapper").remove();		//remove any previously generated game instances
+//remove any previously generated game instances
+	$(".card-wrapper").remove();		
 	$("#moves-total").text(0);
 }
 
-//To add check gameplay function to see what game is being played and adjust the time remaining
-//accordingly. 
 
