@@ -46,7 +46,7 @@ h1 {
     line-height: 1.2;
 }
 
-button h4 {
+h4 {
     font-family: inherit;
     font-size: clamp(18px, 3.5vw, 32px);
     margin-bottom: .2rem;
