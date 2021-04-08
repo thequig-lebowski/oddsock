@@ -181,7 +181,8 @@ function victory() {
 	endTime = $("#countdown").text();
 	totalMoves = $("#moves-total").text();
 	canTime = false;//freeze the timer
-	canReset = false;
+	
+	pauseOverlay();
 
 	//calculate final score
 	let elapsedTime = totalTime - endTime;
@@ -201,28 +202,27 @@ function victory() {
 		console.log("you win set timeout");
 	}, 1400);
 
-//Prevent overlay from being accidentially clicked for a short moment.
-	setTimeout(() => {
-		canReset = true;
-	}, 2200);
-
 	canTime = true;//unfreeze the timer.
 }
 
 //--------------------------------------Game Over
 function gameOver() {
 	
-	canReset = false;
+	pauseOverlay();
 
 	setTimeout(() => {
 		$(".game-over").addClass("visible");
 	}, 1000);
 
+	canTime = true;// unfreeze the timer
+}
+
+function pauseOverlay() {
 //Prevent overlay from being accidentially clicked for a short moment.
+	canReset = false;
 	setTimeout(() => {
 		canReset = true;
 	}, 2200);
-	canTime = true;// unfreeze the timer
 }
 
 //--------------------------------------Reset Cards (unflip)
@@ -256,10 +256,8 @@ function resetGame(elm) {
 	//Reset the game for the same level that was just played.
 	if (canReset) {
 		levelSelect(currentLevel, totalTime);
-		// target parent element of click event and remove attribute to hide screen
-		// elm.parentNode.remove(".visible");
+		// target parent element of click event and remove class to hide screen
 		elm.classList.remove("visible");
-		console.log(elm);
 		canTime = true;//unfreeze the timer
 	}
 }

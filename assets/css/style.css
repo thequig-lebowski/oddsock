@@ -90,6 +90,7 @@ img {
     flex-direction: column;
     font-family: 'Dela Gothic One', serif;
     transition: background-color 500ms, font-size 500ms;
+    cursor: pointer;
     
 }
 
@@ -115,7 +116,7 @@ img {
 }
 
 .overlay.visible {
-    display: flex;
+    display: flex !important;
     animation: grow 900ms forwards;
 }
 

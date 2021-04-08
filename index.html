@@ -18,26 +18,26 @@
 	</header>
 	<main>
 		<!-- Overlays for start game, rules, game over and game win -->
-		<div class="overlay start-game visible">
+		<div class="overlay start-game visible" onclick="resetGame(this)">
 			<h2>Start Game</h2>
 			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, aut.</p>
-			<h4 id="start" onclick="resetGame(this)">Click to Start</h4>
+			<h4 id="start" >Click to Start</h4>
 		</div>
-		<div class="overlay game-over">
+		<div class="overlay game-over" onclick="resetGame(this)">
 			<h2>Game Over</h2>
-			<h4 class="play-again" onclick="resetGame(this)">Play Agian?</h4>
+			<h4 class="play-again" >Click to Play Again</h4>
 		</div>
-		<div class="overlay you-win">
+		<div class="overlay you-win" onclick="resetGame(this)">
 			<h2>You Win</h2>
-			<h4 class="play-again" onclick="resetGame(this)">Play Again?</h4>
+			<h4 class="play-again">Click to Play Again</h4>
 			<p>Moves <span id="moves"> </span> Time <span id="time"> </span> 
 			Score <span id="score"> </span></p>
 		</div>
 		<div class="game-controls">
-			<button id="easy" onclick="levelSelect(4, 10)">
+			<button id="easy" onclick="levelSelect(4, 5)">
 				<h4>Easy</h4>
 			</button>
-			<button id="medium" onclick="levelSelect(6, 20)">
+			<button id="medium" onclick="levelSelect(6, 5)">
 				<h4>Difficult</h4>
 			</button>
 			<!-- <button id="hard" onclick="levelSelect(8, 300)">
