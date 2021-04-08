@@ -11,23 +11,84 @@ let matchedPairs = 0;
 let totalPairs; //number of pairs of cards on the board
 let endTime;
 let totalMoves;
-let timeLimit;
+// let timeLimit;
 let finalScore = 0;
-let canTime = true;
+let canTime = false;
 
-//Check for DOM to finish loading, then set game level to easy by default.
+// Check for DOM to finish loading, then set game level to easy by default.
+
 if (document.readyState === "loading") {
 	document.addEventListener("DOMContentLoaded", levelSelect(4, 100));
 } else {
 	levelSelect(4, 100);
 }
 
-//--------------------------------------Start Game
-function startGame(time) {
+// document.getElementById("start-game").onclick = function() {myFunction()};
+// if (document.readyState === "loading") {
+// 	document.addEventListener("DOMContentLoaded", startScreen());
+// } else {
+// 	startScreen();
+// }
+
+//--------------------------------------Level Select
+function levelSelect(num1, time) {
+
+	currentLevel = num1;
+	// timeLimit = time;
+	totalTime = time;
+	matchedPairs = 0;
+
+	//To add if statement to check if the difficulty level selected is already the level
+	//being displayed, use .preventDefualt() else resetGame().
+
+	clearGameBoard();
+
+	totalPairs = (num1 * num1) / 2; //calculate the required number of divs
+	let gridBox = "";	//create an empty string to hold the generated html
+
+	$("#countdown").text(time); //set the time limit for this level
+	
+
+
+	for (let i = 0; i < totalPairs; i++) {
+		for (let j = 0; j < 2; j++) {
+			gridBox = `${gridBox}
+					<div class="card-wrapper" data-cardvalue="${i + 1}">
+						<div class="card card-back">
+							<img class="back-image" src="assets/images/cardfront.png" alt="hidden card"/>
+						</div>
+						<div class="card card-front">
+							<img class="front-image" src="assets/images/${i + 1}.png" alt="sock picture"/>
+						</div>
+					</div>`;
+		}
+	}
+
+	$(".game-wrapper").css(`grid-template-columns`, `repeat(${num1}, auto)`);
+	$(".game-wrapper").css("display", "grid");
+	$(".game-wrapper").append(gridBox);
+
+	//create array of all the cards to be shuffled
+	cards = Array.from(document.getElementsByClassName("card-wrapper")); 
+	shuffleCards(cards);
+	startGame();
+
+}
+
+//--------------------------------------Play Again/Start Screen
+function overlay(elm, bool) {
+	if(bool){
+		resetGame();
+	}
+	elm.parentNode.style.display = "none";
 	canTime = true;
+}
+
+//--------------------------------------Start Game
+function startGame() {
+	// canTime = true;
 	resetTimer();
 	startTimer(time);
-
 	cards.forEach(card => {
 		card.addEventListener("click", () => {
 			flipCard(card)
@@ -36,19 +97,9 @@ function startGame(time) {
 
 }
 
-
-//--------------------------------------Fisher-Yates Shuffle Method
-function shuffleCards(cards) {
-
-	for (let i = cards.length - 1; i > 0; i--) {
-		let randPosition = Math.floor(Math.random() * (i + 1));
-		cards[randPosition].style.order = i;
-		cards[i].style.order = randPosition;
-	}
-}
-
 //--------------------------------------Timer function
-function startTimer(time) {
+function startTimer() {
+	let time = totalTime;
 	countdownTimer = setInterval(() => {
 		if (canTime) {
 			let newTime = time--;
@@ -61,6 +112,16 @@ function startTimer(time) {
 	}, 1000);
 }
 
+//--------------------------------------Fisher-Yates Shuffle Method
+function shuffleCards(cards) {
+
+	// for (let i = cards.length - 1; i > 0; i--) {
+	// 	let randPosition = Math.floor(Math.random() * (i + 1));
+	// 	cards[randPosition].style.order = i;
+	// 	cards[i].style.order = randPosition;
+	// }
+}
+
 //--------------------------------------Reset Timer
 function resetTimer() {
 	// game over when timer runs out
@@ -69,7 +130,9 @@ function resetTimer() {
 
 //--------------------------------------Game Over
 function gameOver() {
-	console.log("game over");
+	setTimeout(() => {
+		$(".game-over").css("display", "flex");
+	}, 1000);
 }
 
 //--------------------------------------Flip Card
@@ -79,8 +142,7 @@ function flipCard(card) {
 		//increment #moves-total by one each time
 		flipCounter();
 		card.classList.add("flipped");
-		// card.children[1].classList.add("selected");
-		card.classList.add("selected");
+		card.children[1].classList.add("selected");
 
 		if (!isCardFlipped) {
 			isCardFlipped = true;
@@ -106,6 +168,7 @@ function flipCard(card) {
 	}
 }
 
+//--------------------------------------Check Card Match
 function cardMatchCheck(card1, card2) {
 
 	card1 = firstCard.dataset.cardvalue;
@@ -121,10 +184,8 @@ function cardMatchCheck(card1, card2) {
 //--------------------------------------Highlight Card Select
 function cardHighlight(firstCard, secondCard) {
 	setTimeout(() => {
-		// firstCard.children[1].classList.remove("selected");
-		// secondCard.children[1].classList.remove("selected");
-		firstCard.classList.remove("selected");
-		secondCard.classList.remove("selected");
+		firstCard.children[1].classList.remove("selected");
+		secondCard.children[1].classList.remove("selected");
 	}, 900);
 	
 }
@@ -159,6 +220,14 @@ function victory() {
 	console.log("elaspsed time " + elapsedTime);
 	console.log("moves over " + movesOver);
 	resetTimer();
+
+	$("#moves").text(totalMoves);
+	$("#time").text(elapsedTime);
+	$("#score").text("TBC");
+
+	setTimeout(() => {
+		$(".you-win").css("display", "flex");
+	}, 1400);
 	// finalScore = endTime / 
 	// console.log("your score is " + finalScore);
 
@@ -193,52 +262,9 @@ function canFlipCard(card) {
 
 }
 
-//--------------------------------------Level Select
-function levelSelect(num1, time) {
-
-	currentLevel = num1;
-	timeLimit = time;
-	matchedPairs = 0;
-
-	//To add if statement to check if the difficulty level selected is already the level
-	//being displayed, use .preventDefualt() else resetGame().
-
-	clearGameBoard();
-
-	totalPairs = (num1 * num1) / 2; //calculate the required number of divs
-	let gridBox = "";	//create an empty string to hold the generated html
-
-	$("#countdown").text(time);
-	totalTime = time;
-
-
-	for (let i = 0; i < totalPairs; i++) {
-		for (let j = 0; j < 2; j++) {
-			gridBox = `${gridBox}
-					<div class="card-wrapper" data-cardvalue="${i + 1}">
-						<div class="card card-back">
-							<img class="back-image" src="assets/images/cardfront.png" alt="hidden card"/>
-						</div>
-						<div class="card card-front">
-							<img class="front-image" src="assets/images/${i + 1}.png" alt="sock picture"/>
-						</div>
-					</div>`;
-		}
-	}
-
-	$(".game-wrapper").css(`grid-template-columns`, `repeat(${num1}, auto)`);
-	$(".game-wrapper").css("display", "grid");
-	$(".game-wrapper").append(gridBox);
-
-	cards = Array.from(document.getElementsByClassName("card-wrapper"));
-	shuffleCards(cards);
-	startGame(time);
-
-}
-
 //--------------------------------------Reset Game
 function resetGame() {
-	levelSelect(currentLevel, timeLimit);
+	levelSelect(currentLevel, totalTime);
 }
 
 //--------------------------------------Remove previously generated card divs

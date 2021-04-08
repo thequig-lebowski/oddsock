@@ -33,6 +33,7 @@ body {
    1px -1px 0 #000,
    -1px 1px 0 #000,
     1px 1px 0 #000;
+    
 }
 
 html {
@@ -53,10 +54,22 @@ h4 {
     margin-top: 0;
 }
 
+h4:hover {
+    cursor: pointer;
+}
+
 #special-spacing {
     letter-spacing: 1.9vw;
     position: relative;
     left: 1.3vw;
+}
+
+img {
+    image-rendering: -moz-crisp-edges; /* Firefox */
+    image-rendering: -o-crisp-edges; /* Opera */
+    image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
 }
 
 /*------------------Overlays------------------*/
@@ -72,6 +85,7 @@ h4 {
     justify-content: center;
     align-items: center;
     color: white;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .overlay h1 {
@@ -79,7 +93,7 @@ h4 {
 }
 
 .start-game {
-    display: none;
+    display: flex;
 }
 
 .game-over {
@@ -125,6 +139,7 @@ h4 {
     grid-column: 1 / -1;
     font-family: 'Dela Gothic One', cursive;
     font-size: min(18px, 3vw);
+    
 }
 
 
@@ -147,7 +162,7 @@ button {
     border-radius: 4px;
     font-family: 'Dela Gothic One', cursive;
     cursor: pointer;
-
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     
 }
 
@@ -172,16 +187,17 @@ button:focus {
     
     position: relative;
     height: 115px;
-    width: 115px;    
-    transition: all .4s ease-in-out;
-    transform: scale(.95);
+    width: 115px;  
+    border-radius: 11px;
 
 }
 
-.card-wrapper:hover {
-    /* border: 2px solid red; */
-    transform: scale(1);
+.card-front.selected {
+    border: 3px solid #0ecaf0; 
 }
+
+    
+
 
 .card-wrapper:hover {
     cursor: pointer;
@@ -205,7 +221,7 @@ button:focus {
     align-items: center;
     overflow: hidden;
     backface-visibility: hidden;
-    transition: transform 450ms ease-in-out;
+    transition: transform 450ms ease-in-out;   
     
 
 }
@@ -214,6 +230,7 @@ button:focus {
     position: absolute;
     background: radial-gradient(#0472f0, #1d30e2 );
     border: 2px solid white;
+    box-shadow: 0 4px 8px 0 rgba(53, 37, 37, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
  
 }
@@ -223,8 +240,7 @@ button:focus {
     transform: rotateY(180deg);
     background-color: white;
     border: 2px solid white;
-    box-shadow: inset 0 0 30px 5px #9ac0eb;
-
+    box-shadow: 0 4px 8px 0 rgba(53, 37, 37, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19), inset 0 0 30px 5px #9ac0eb;
 }
 
 

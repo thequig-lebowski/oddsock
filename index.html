@@ -21,16 +21,17 @@
 		<div class="overlay start-game">
 			<h1>Start Game</h1>
 			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, aut.</p>
-			<h4>Start</h4>
+			<h4 id="start" onclick="overlay(this, false)">Start</h4>
 		</div>
 		<div class="overlay game-over">
 			<h1>Game Over</h1>
-			<h4>Play Agian?</h4>
+			<h4 class="play-again" onclick="overlay(this, true)">Play Agian?</h4>
 		</div>
 		<div class="overlay you-win">
 			<h1>You Win</h1>
-			<h3>Play Again?</h3>
-			<p>Moves<span id="moves"></span>Time<span id="time"></span></p>
+			<h4 class="play-again" onclick="overlay(this, true)">Play Again?</h4>
+			<p>Moves <span id="moves"> </span>Time <span id="time"> </span>
+			Score <span id="score"> </span></p>
 		</div>
 		<div class="game-controls">
 			<button id="easy" onclick="levelSelect(4, 100)">
