@@ -112,7 +112,6 @@ button:focus {
 }
 
 .overlay > p {
-    /* display: inline; */
     overflow: hidden;
     white-space: pre-line;
 }
@@ -170,11 +169,8 @@ a:hover {
 .game-wrapper {
     display: none;  /*target this in .js and change to 'grid' to display game*/
     grid-template-columns: repeat(int, auto); /*target and change this to set dificulty level*/
-    /* grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); */
     grid-gap: 10px;
     margin: 30px;
-
-
     justify-content: center;
     perspective: 900px; /*this assumes the distance from the screen to the user*/
 }

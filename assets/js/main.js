@@ -24,8 +24,9 @@ if (document.readyState === "loading") {
 	levelSelect(4, 100);
 }
 
-//--------------------------------------Resive Card-wrapper according to level select
+//--------------------------------------Resize Card-wrapper according to level select
 function resize() {
+
 	if(currentLevel === 6){
 		$(".card-wrapper").addClass("small");
 	}
@@ -33,6 +34,7 @@ function resize() {
 
 //--------------------------------------Calculate Grid Gap Size for Responsiveness
 function calcGapSize() {
+
 	if (currentLevel === 4) {
 		gapSize = 10;
 	} else {
@@ -50,13 +52,10 @@ function levelSelect(num1, time) {
 	clearGameBoard();
 	calcGapSize();
 	
-
 	totalPairs = (num1 * num1) / 2; //calculate the required number of divs
 	let gridBox = "";	//create an empty string to hold the generated html
 
 	$("#countdown").text(time); //set the time limit for this level
-
-
 
 	for (let i = 0; i < totalPairs; i++) {
 		for (let j = 0; j < 2; j++) {
@@ -82,7 +81,6 @@ function levelSelect(num1, time) {
 	shuffleCards(cards);
 	startGame();
 	resize();
-
 }
 
 //--------------------------------------Start Game
@@ -95,7 +93,6 @@ function startGame() {
 			flipCard(card)
 		});
 	});
-
 }
 
 //--------------------------------------Timer function
@@ -117,15 +114,16 @@ function startTimer() {
 //--------------------------------------Fisher-Yates Shuffle Method
 function shuffleCards(cards) {
 
-	// for (let i = cards.length - 1; i > 0; i--) {
-	// 	let randPosition = Math.floor(Math.random() * (i + 1));
-	// 	cards[randPosition].style.order = i;
-	// 	cards[i].style.order = randPosition;
-	// }
+	for (let i = cards.length - 1; i > 0; i--) {
+		let randPosition = Math.floor(Math.random() * (i + 1));
+		cards[randPosition].style.order = i;
+		cards[i].style.order = randPosition;
+	}
 }
 
 //--------------------------------------Reset Timer
 function resetTimer() {
+
 	clearInterval(countdownTimer);
 }
 
@@ -161,6 +159,7 @@ function flipCard(card) {
 
 //--------------------------------------Check Card Match
 function cardMatchCheck(card1, card2) {
+
 	//compare the datasets of flipped cards to see if they are a match
 	if (canVictory) {
 		card1 = firstCard.dataset.cardvalue;
@@ -176,7 +175,8 @@ function cardMatchCheck(card1, card2) {
 
 //--------------------------------------Highlight Card Select
 function cardHighlight(firstCard, secondCard) {
-	//remove the boarder from around already matched pairs of cards
+
+	//remove the boarder from already matched pairs of cards
 	setTimeout(() => {
 		firstCard.children[1].classList.remove("selected");
 		secondCard.children[1].classList.remove("selected");
@@ -185,6 +185,7 @@ function cardHighlight(firstCard, secondCard) {
 
 //--------------------------------------Check to see when game is over
 function checkGameWin() {
+
 	// check to see when game is over
 	if (matchedPairs <= totalPairs - 2) {
 		return;
@@ -215,7 +216,6 @@ function victory() {
 	resetTimer();
 
 	//Set the text for the score
-
 	$("#score").text(score);
 
 	//Display You win overlay
@@ -242,6 +242,7 @@ function gameOver() {
 
 //--------------------------------------Pause Clicking Overlays
 function pauseOverlay() {
+
 	//Prevent overlay from being accidentially clicked for a short moment.
 	canReset = false;
 	setTimeout(() => {
@@ -251,6 +252,7 @@ function pauseOverlay() {
 
 //--------------------------------------Reset Cards (unflip)
 function resetCards() {
+
 	// reset cards after a short delay when flipped pair are not a match
 	setTimeout(() => {
 		firstCard.classList.remove("flipped");
@@ -262,6 +264,7 @@ function resetCards() {
 
 //--------------------------------------Move Counter
 function flipCounter() {
+
 	//increment moves counter by 1 for each card flip
 	let clicks = $("#moves-total").text();
 	clicks++;
@@ -270,6 +273,7 @@ function flipCounter() {
 
 //--------------------------------------Prevent click during animations and on already matched cards
 function canFlipCard(card) {
+
 	// returns false if the current card is already flipped i.e. has 'flipped' class
 	// or game is busy
 	return !card.classList.contains("flipped") && !gameBusy;
@@ -277,7 +281,8 @@ function canFlipCard(card) {
 
 //--------------------------------------Reset Game
 function resetGame(elm) {
-	//Reset the game for the same level that was just played.
+
+	//Reset the game to the same level that was just played.
 	if (canReset) {
 		levelSelect(currentLevel, totalTime);
 		// target parent element of click event and remove class to hide screen
@@ -288,6 +293,7 @@ function resetGame(elm) {
 
 //--------------------------------------Remove previously generated card divs
 function clearGameBoard() {
+	
 	//remove any previously generated game instances and set game counter to zero.
 	$(".card-wrapper").remove();
 	$("#moves-total").text(0);
