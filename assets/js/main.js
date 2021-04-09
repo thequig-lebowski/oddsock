@@ -117,11 +117,11 @@ function startTimer() {
 //--------------------------------------Fisher-Yates Shuffle Method
 function shuffleCards(cards) {
 
-	for (let i = cards.length - 1; i > 0; i--) {
-		let randPosition = Math.floor(Math.random() * (i + 1));
-		cards[randPosition].style.order = i;
-		cards[i].style.order = randPosition;
-	}
+	// for (let i = cards.length - 1; i > 0; i--) {
+	// 	let randPosition = Math.floor(Math.random() * (i + 1));
+	// 	cards[randPosition].style.order = i;
+	// 	cards[i].style.order = randPosition;
+	// }
 }
 
 //--------------------------------------Reset Timer
@@ -211,14 +211,12 @@ function victory() {
 	//calculate final score
 	let elapsedTime = totalTime - endTime;
 	let movesOver = (parseInt(totalMoves) + 2) - (totalPairs * 2);
+	let score = elapsedTime / movesOver;
 	resetTimer();
 
-	// finalScore calculation to go here
+	//Set the text for the score
 
-	//Set the text for the score and time
-	$("#moves").text(totalMoves);
-	$("#time").text(elapsedTime);
-	$("#score").text("TBC");
+	$("#score").text(score);
 
 	//Display You win overlay
 	setTimeout(() => {
