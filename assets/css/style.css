@@ -107,6 +107,11 @@ h4:hover {
     display: none;
 }
 
+#how-to {
+    font-size: .5em;
+
+}
+
 .overlay.visible {
     display: flex;
     animation: grow 900ms forwards;
@@ -182,6 +187,7 @@ button:focus {
     font-size: clamp(18px, 3vw, 24px);
 }
 
+
 /*------------------Cards------------------*/
 
 .card-wrapper {
@@ -189,6 +195,11 @@ button:focus {
     height: 115px;
     width: 115px;  
     border-radius: 11px;
+}
+
+.card-wrapper.small {
+    height: 95px;
+    width: 95px;
 }
 
 .card-front.selected {
@@ -253,18 +264,6 @@ button:focus {
 
 /*------------------Media Queries------------------*/
 
-/* On screens that are 992px wide or less*/
-@media screen and (min-width: 992px) {
-        /* .main-header{
-            font-size: 72px;
-        } */
-  }
-
-/* On screens that are 767px wide or less*/
-@media screen and (max-width: 767px) {
-
-}
-
 /* On screens that are 767px wide or less*/
 @media screen and (max-width: 576px) {
 
@@ -273,8 +272,12 @@ button:focus {
     width: 75px;
 }
 .card-wrapper.small {
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
+}
+
+.game-wrapper {
+    grid-gap: 5px !important;
 }
 
 }

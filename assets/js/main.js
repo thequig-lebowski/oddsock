@@ -15,12 +15,27 @@ let finalScore = 0;
 let canTime = false;
 let canReset = true;
 let canVictory = true;
+let gapSize;
 
 // Check for DOM to finish loading, then set game level to easy by default.
 if (document.readyState === "loading") {
 	document.addEventListener("DOMContentLoaded", levelSelect(4, 100));
 } else {
 	levelSelect(4, 100);
+}
+
+function resize() {
+	if(currentLevel === 6){
+		$(".card-wrapper").addClass("small");
+	}
+}
+
+function calcGapSize() {
+	if (currentLevel === 4) {
+		gapSize = 10;
+	} else {
+		gapSize = 7;
+	}
 }
 
 //--------------------------------------Level Select
@@ -31,6 +46,8 @@ function levelSelect(num1, time) {
 	matchedPairs = 0;
 
 	clearGameBoard();
+	calcGapSize();
+	
 
 	totalPairs = (num1 * num1) / 2; //calculate the required number of divs
 	let gridBox = "";	//create an empty string to hold the generated html
@@ -55,12 +72,14 @@ function levelSelect(num1, time) {
 
 	$(".game-wrapper").css(`grid-template-columns`, `repeat(${num1}, auto)`);
 	$(".game-wrapper").css("display", "grid");
+	$(".game-wrapper").css(`grid-gap`, `${gapSize}px`);
 	$(".game-wrapper").append(gridBox);
 
 	//create array of all the cards to be shuffled
 	cards = Array.from(document.getElementsByClassName("card-wrapper"));
 	shuffleCards(cards);
 	startGame();
+	resize();
 
 }
 
