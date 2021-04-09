@@ -23,7 +23,7 @@ body {
 
 .main-header {
     font-family: SafirScript;
-    font-size: clamp(50px, 9vw, 75px);
+    font-size: clamp(42px, 9vw, 75px);
     text-align: center;
     padding-top: 20px;
     color: red;
