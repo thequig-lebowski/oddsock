@@ -24,12 +24,14 @@ if (document.readyState === "loading") {
 	levelSelect(4, 100);
 }
 
+//--------------------------------------Resive Card-wrapper according to level select
 function resize() {
 	if(currentLevel === 6){
 		$(".card-wrapper").addClass("small");
 	}
 }
 
+//--------------------------------------Calculate Grid Gap Size for Responsiveness
 function calcGapSize() {
 	if (currentLevel === 4) {
 		gapSize = 10;
@@ -115,11 +117,11 @@ function startTimer() {
 //--------------------------------------Fisher-Yates Shuffle Method
 function shuffleCards(cards) {
 
-	// for (let i = cards.length - 1; i > 0; i--) {
-	// 	let randPosition = Math.floor(Math.random() * (i + 1));
-	// 	cards[randPosition].style.order = i;
-	// 	cards[i].style.order = randPosition;
-	// }
+	for (let i = cards.length - 1; i > 0; i--) {
+		let randPosition = Math.floor(Math.random() * (i + 1));
+		cards[randPosition].style.order = i;
+		cards[i].style.order = randPosition;
+	}
 }
 
 //--------------------------------------Reset Timer
