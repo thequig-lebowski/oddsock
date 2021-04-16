@@ -21,15 +21,13 @@ https://thequig-lebowski.github.io/oddsock/
 3. [Technologies Used](#Technologies-Used)
 4. [Testing](#Testing)
 	* [Testing User Stories](#Testing-User-Stories) 
+	* [Unit Testing](#Unit-Testing)
 	* [Device Testing](#Device-Testing)
 	* [Validation](#Validation)
-	* [Unit Testing](#Unit-Testing)
-	* [Known Bugs](#Known-bugs)
 5. [Deployment](#Deployment)
 6. [Credits](#Credits)
 	* [Code](#Code)
 	* [Images](#Images)
-	* [Acknowledgements](#Acknowledgments)
 
 <br><br>
 
@@ -66,9 +64,6 @@ Colour Pallete, screen shots, theme
 * As a user I want to develop my memory skills and reaction times
 * As a user I want my young child to develop their hand-eye coordination 
 * As a user I will look for feedback as to weather or not I am using the site/playing the game correctly.
-	* Visual cues to let the user know buttons have been clicked
-	* Modals when I run out of time/loose
-	* Notifications when I win or the game is over
 * As the user I want to be able to play the game on my mobile device as well as desktop/laptop
 
 ## Design
@@ -136,3 +131,138 @@ Another feature I would have liked to include would have been a 'Share' button o
 * Google Fonts - used to style the main section of the game
 * Lighthouse - used for testing the performance and accesibility of the site
 * W3C Markup Validator - used to check the markup of the site and ensure there were no major errors.
+<br>
+<br>
+
+# Testing
+## Testing User Stories
+* As a user I want to play a fun game to pass the time.
+<br>
+	-The game is engaging, simple and provides adequate challenge
+<br>
+<br>
+* As a user I want to develop my memory skills and reaction times.
+<br>
+	-Providing two levels of difficulty a user has the scope to challenge themselves to improve using their time and score as a bar to beat.
+<br>
+<br>
+* As a user I want my young child to develop their hand-eye coordination.
+ 	- Playing the game on a device such as an iPad or smartphone, a young child could indeed develop such dexterity.
+<br>
+<br>
+* As a user I will look for feedback as to weather or not I am using the site/playing the game correctly.
+	- Visual cues such as fliping the card to let the user know buttons have been clicke. Screen overlays when I run out of time/loose. Notifications when I win or the game is over.
+<br>
+<br>
+* As the user I want to be able to play the game on my mobile device as well as desktop/laptop
+<br>
+	- The site is responsive and adapts well across multiply platforms.
+
+<br>
+
+## Unit Testing
+Testing throughout development I encountered a few problems that needed to be sorted before I was able to continue.
+* While writing the html code within the JS code that generated the correct number of divs for each level of dificulty I was using the incorrect file path to the images. I had used the file path from the .js file I was in rather than the .html file the the code would eventually be read from.
+<br>
+
+This:
+
+`<img class="sock" src="../images/${i+1}.png" alt="sock picture"/>`
+
+Became:
+
+`<img class="sock" src="assets/images/${i+1}.png" alt="sock picture"/>`
+
+* Unsatisfied with the spacing in the main title I added a span to style a single space between a dash and the 'O'.
+
+* While testing I found that clicking the same card twice would produce a false win. I resolved this by adding the function `canFlipCard()` It checks to see if the card being clicked already has the `flipped` class attached to it and prevents it from flipping if it does. Later on I added another check, `gameBusy`, to prevent the user from clicking a card while an animation was running or the mis-matched cards hadn't reset yet.
+
+* While manually testing I found that multiply instances of the `startTimer()` function where running at once. This I fixed by running and `if` statement inside the `setInterval()` function. The `if` checked a variable `canTime` for truthy every time it ran and would stop if it wasn't true. Elsewhere in the program the `canTime` variable was set to `false` when the timer was needed to stop. This solution works but I would like to find an alternative as this is prone to get out of hand on bigger projects as you need to rememeber to reset the varialbe to `true` every time.
+
+* I had created and `overlay()` function to manage the overlay screens at the start and end of the games, however I found that it wouldn't reset the game consistantly.
+I eventually removed this function completely and incorporated it into the `resetGame()` function.
+
+* While trying to get the `resetGame()` function to work consistantly I struggled with a simple keyword.
+`elm.remove(".visible");`
+became this instead
+`elm.classList.remove("visible");`
+
+
+
+## Device Testing
+![Am I Responsive](assets/images/AssetsREADME/amiresponsive.png)
+<br>
+<br>
+The site was tested continously throughout development on both mobile, desktop and medium screens and adjusted accordingly.
+
+## Validation
+
+ Using the W3C validator I was made aware of a markup error. I had originally used the `<button>` ellements in which I then used a `<h3>` element to style the text within them. Although this worked for me the validator threw up an error saying that it was not possible to have a `<h3>` element as a child of a `<button>` element. I resolved this by removing them and replacing them with `<div>` elements instead and then adding some CSS stying to get them to match what I had originally.
+ <br>
+ <br>
+ Using Lighthouse to check the performance and accesibility of the site.
+ ![Lighthouse Desktop](assets/images/AssetsREADME/lighthousedt.png)
+ <br>
+ <br>
+ Running Lighthouse for mobile devices too
+![Lighthouse Mobile](assets/images/AssetsREADME/lighthousem.png)
+<br>
+<br>
+
+# Deployment
+## GitHub Pages
+
+The project was deployed to GitHub Pages using the following steps...
+
+1. Log in to GitHub and locate the GitHub Repository
+2. At the top of the Repository (not top of page), locate the "Settings" Button on the menu.
+3. Scroll down the Settings page until you locate the "GitHub Pages" Section.
+4. Under "Source", click the dropdown called "None" and select "Master Branch".
+5. The page will automatically refresh.
+6. Scroll back down through the page to locate the now published site link in the "GitHub Pages" section.
+
+## Forking the GitHub Repository
+
+By forking the GitHub Repository we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps...
+
+1. Log in to GitHub and locate the GitHub Repository
+2. At the top of the Repository (not top of page) just above the "Settings" Button on the menu, locate the "Fork" Button.
+3. You should now have a copy of the original repository in your GitHub account.
+
+## Making a Local Clone
+
+1. Log in to GitHub and locate the GitHub Repository.
+2. Under the repository name, click "Clone or download".
+3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
+4. Open Git Bash
+5. Change the current working directory to the location where you want the cloned directory to be made.
+6. Type `git clone`, and then paste the URL you copied in Step 3.
+
+```
+$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+```
+
+7. Press Enter. Your local clone will be created.
+
+```
+$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+> Cloning into `CI-Clone`...
+> remote: Counting objects: 10, done.
+> remote: Compressing objects: 100% (8/8), done.
+> remove: Total 10 (delta 1), reused 10 (delta 1)
+> Unpacking objects: 100% (10/10), done.
+```
+<br>
+
+# Credits
+## Code
+The majority of this projuect is the culmination of the study I've done with Code Institute, but for the rest I've listed below.
+* Help with generating even, dynamic grids was taken from [these](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns) examples on MDN Web Docs.
+* Additional info on making the font size dynamic was taken from [w3schools](https://www.w3schools.com/howto/howto_css_responsive_text.asp) and [this](https://stackoverflow.com/questions/40528290/how-to-implement-max-font-size) stack overflow thread.
+* [CSS Tricks](https://css-tricks.com/adding-stroke-to-web-text/) had what I needed to get a simulated stroke outline on the main title (it's actually a shadow).
+* Crutialy, in order to re-flip the cards I needed to know the `.contains()` method. [Here](https://www.javascripttutorial.net/dom/css/check-if-an-element-contains-a-class/) is where I found that.
+* [Stack Overflow](https://stackoverflow.com/questions/5978519/how-to-use-setinterval-and-clearinterval) to the resue again, this time for clarity on the `setInterval()` function to run the timmer.
+* To animate the overlays in I used [this](https://www.codegrepper.com/code-examples/css/animation+fade+in+css) piece of CSS.
+* Finally, the shuffle algorithm which took a minute to get my head around was in part, due to [this](https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array/2450976#2450976) Stack Overflow thread.
+## Images
+All the images of socks where created by me except for the [washing machine](https://www.istockphoto.com/vector/thin-line-washing-machine-with-blue-bubble-gm1140553709-305255556) which I got from istockphotos.
