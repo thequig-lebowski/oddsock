@@ -109,6 +109,8 @@ button:focus {
     cursor: pointer;
     white-space: nowrap;
     overflow-wrap: normal;
+    padding-bottom: none;
+ 
     
 }
 
@@ -145,7 +147,7 @@ button:focus {
         font-size: 0;
     }
     to {
-        font-size: 8vw;
+        font-size: min(7vw, 110px);
         background-color: rgba(0, 0, 0, .5);
     }
 }
